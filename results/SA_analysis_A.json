@@ -1,0 +1,145 @@
+{
+ "composition": {
+  "thermal": {
+   "sensor_clients": [
+    [
+     "rgbt_001",
+     43955
+    ],
+    [
+     "rgbt_002",
+     113641
+    ],
+    [
+     "rgbt_003",
+     81231
+    ]
+   ],
+   "pure_rgb_clients": [
+    [
+     "rgbt_000",
+     220295
+    ]
+   ],
+   "sensor_frames": 238827,
+   "pure_rgb_frames": 220295,
+   "dataset_frames": 459122,
+   "pure_rgb_share_of_dataset": 0.4798,
+   "aux_specific_bank_frames": {
+    "fedavg(pooled, all 12)": 881097,
+    "independent(4 clients of this modality, all groups)": 459122,
+    "bucket/fna/S-A (sensor clients only)": 238827
+   },
+   "fusion_norm_bank_frames": {
+    "fedavg(pooled, all 12)": 881097,
+    "independent": 459122,
+    "bucket(aux_specific only: pooled all 12)": 881097,
+    "fna(dataset bucket incl. pure RGB)": 459122,
+    "S-A(sensor clients only)": 238827
+   }
+  },
+  "depth": {
+   "sensor_clients": [
+    [
+     "rgbd_001",
+     91946
+    ],
+    [
+     "rgbd_002",
+     110285
+    ],
+    [
+     "rgbd_003",
+     1478
+    ]
+   ],
+   "pure_rgb_clients": [
+    [
+     "rgbd_000",
+     6204
+    ]
+   ],
+   "sensor_frames": 203709,
+   "pure_rgb_frames": 6204,
+   "dataset_frames": 209913,
+   "pure_rgb_share_of_dataset": 0.0296,
+   "aux_specific_bank_frames": {
+    "fedavg(pooled, all 12)": 881097,
+    "independent(4 clients of this modality, all groups)": 209913,
+    "bucket/fna/S-A (sensor clients only)": 203709
+   },
+   "fusion_norm_bank_frames": {
+    "fedavg(pooled, all 12)": 881097,
+    "independent": 209913,
+    "bucket(aux_specific only: pooled all 12)": 881097,
+    "fna(dataset bucket incl. pure RGB)": 209913,
+    "S-A(sensor clients only)": 203709
+   }
+  },
+  "event": {
+   "sensor_clients": [
+    [
+     "rgbe_000",
+     314
+    ],
+    [
+     "rgbe_002",
+     23463
+    ],
+    [
+     "rgbe_003",
+     8295
+    ]
+   ],
+   "pure_rgb_clients": [
+    [
+     "rgbe_001",
+     179990
+    ]
+   ],
+   "sensor_frames": 32072,
+   "pure_rgb_frames": 179990,
+   "dataset_frames": 212062,
+   "pure_rgb_share_of_dataset": 0.8488,
+   "aux_specific_bank_frames": {
+    "fedavg(pooled, all 12)": 881097,
+    "independent(4 clients of this modality, all groups)": 212062,
+    "bucket/fna/S-A (sensor clients only)": 32072
+   },
+   "fusion_norm_bank_frames": {
+    "fedavg(pooled, all 12)": 881097,
+    "independent": 212062,
+    "bucket(aux_specific only: pooled all 12)": 881097,
+    "fna(dataset bucket incl. pure RGB)": 212062,
+    "S-A(sensor clients only)": 32072
+   }
+  },
+  "rgb_shared_pool_frames_all_methods_except_independent": 881097
+ },
+ "comm": {
+  "trainable_params_by_group": {
+   "aux_specific": 664416,
+   "rgb_shared": 73836,
+   "fusion": 82944,
+   "norm": 18432
+  },
+  "trainable_params_total": 839628,
+  "theory_bytes_fp32": {
+   "sensor_client_upload": 3358512,
+   "pure_rgb_client_upload": 700848,
+   "download_full_view_per_client": 3358512
+  },
+  "serialized_bytes_torch_save": {
+   "sensor_client_upload": 3391894,
+   "pure_rgb_client_upload": 726426
+  },
+  "clients": {
+   "sensor": 9,
+   "pure_rgb": 3
+  },
+  "per_round_theory_MB": 72.63,
+  "total_120_rounds_theory_GB": 8.716,
+  "total_120_rounds_serialized_GB_upload_plus_full_download": 8.809,
+  "note": "all federated variants here upload the same groups (S-A/bucket/fna change aggregation, not what is uploaded); identical comm for FedAvg, bucket, fna, S-A"
+ }
+}

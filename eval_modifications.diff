@@ -1,0 +1,46 @@
+diff --git a/RGBE_workspace/test_rgbe_mgpus.py b/RGBE_workspace/test_rgbe_mgpus.py
+index cf33cdb..70934ee 100644
+--- a/RGBE_workspace/test_rgbe_mgpus.py
++++ b/RGBE_workspace/test_rgbe_mgpus.py
+@@ -113,6 +113,7 @@ if __name__ == '__main__':
+     parser.add_argument('--epoch', default=60, type=int, help='epochs of ckpt')
+     parser.add_argument('--mode', default='parallel', type=str, help='running mode: [sequential , parallel]')
+     parser.add_argument('--debug', default=0, type=int, help='to vis tracking results')
++    parser.add_argument('--seq_home', type=str, default='', help='Local VisEvent test-subset directory.')
+     parser.add_argument('--video', type=str, default='', help='Sequence name for debug.')
+     args = parser.parse_args()
+ 
+@@ -122,8 +123,12 @@ if __name__ == '__main__':
+     # path initialization
+     seq_list = None
+     if dataset_name == 'VisEvent':
+-        seq_home = '/media/jiawen/Datasets/Tracking/DATASET/VisEvent/test'
+-        with open(join(seq_home, 'testlist.txt'), 'r') as f:
++        # 2026-09-26: localize the author script without changing inference.
++        seq_home = args.seq_home or r'D:\cvresearch\data\visevent\test_subset'
++        list_path = join(seq_home, 'testlist.txt')
++        if not os.path.exists(list_path):
++            list_path = r'D:\cvresearch\tools\VisEvent_SOT_Benchmark\sequence_evaluation_config\VisEvent_testing_subset.txt'
++        with open(list_path, 'r') as f:
+             seq_list = f.read().splitlines()
+         seq_list.sort()
+     else:
+diff --git a/lib/test/tracker/data_utils.py b/lib/test/tracker/data_utils.py
+index d40d354..d18ea12 100644
+--- a/lib/test/tracker/data_utils.py
++++ b/lib/test/tracker/data_utils.py
+@@ -1,3 +1,5 @@
++import os
++
+ import torch
+ import numpy as np
+ 
+@@ -21,6 +23,8 @@ class PreprocessorMM(object):
+         # Deal with the image patch
+         img_tensor = torch.tensor(img_arr).cuda().float().permute((2,0,1)).unsqueeze(dim=0)
+         img_tensor_norm = ((img_tensor / 255.0) - self.mean) / self.std  # (1,6,H,W)
++        if os.environ.get("CVR_ZERO_AUX") == "1":
++            img_tensor_norm[:, 3:] = 0
+         return img_tensor_norm
+ 
+ 
